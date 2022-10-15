@@ -92,7 +92,8 @@ To serve our webcontent on our webserver, we create a directory for our project 
 
 The following snippets represents the configuration required for our web server block to be functional
 
-```#/etc/nginx/sites-available/projectlemp
+```
+#/etc/nginx/sites-available/projectlemp
 
 server {
     listen 80;
@@ -114,7 +115,8 @@ server {
         deny all;
     }
 
-}```
+}
+```
 
 We then link the configuration file to the sites-enabled directory
 
@@ -164,11 +166,13 @@ exit from the mysql-server in which we are currently logged in as root user and 
 
 We create a table for the current user inside the lemp_db database and specify content parameters
 
-```CREATE TABLE lemp_db.todo_list(
+```
+CREATE TABLE lemp_db.todo_list(
     item_id INT AUTO_INCREMENT,
     content VARCHAR(255),
     PRIMARY KEY (item_id)
-);```
+);
+```
 
 Push in contents into the table `INSERT INTO lemp_db.todo_list(content) VALUES ('enter contents')`
 
