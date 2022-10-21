@@ -2,7 +2,7 @@
 
 We create an aws EC2 instance, named `project mean`. This will serve as the backbone of our application deployment
 
-![]()
+![](./img/mean1.PNG)
 
 Then, update and upgrade core dependencies
 
@@ -21,7 +21,7 @@ curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 sudo apt install -y nodejs
 ```
 
-![]()
+![](./img/mean2.PNG)
 
 We then proceed to install mongodb which is a non-relational database which we will use to store our applications data.
 
@@ -39,7 +39,7 @@ sudo systemctl enable mongodb
 sudo systemctl status mongodb
 ```
 
-![]()
+![](./img/mean3.PNG)
 
 Install `npm` which is the default package manager for JavaScript's runtime Node.js.
 
@@ -47,7 +47,7 @@ Install `npm` which is the default package manager for JavaScript's runtime Node
 sudo apt install -y npm
 ```
 
-![]()
+![](./img/mean4.PNG)
 
 Install body-parser
 
@@ -55,7 +55,7 @@ Install body-parser
 sudo npm install body-parser
 ```
 
-![]()
+![](./img/mean5.PNG)
 
 We create a `Books` directory and we initialize it as a npm project using `npm init` in the Books directory. Then create a `server.js` file and setup the server.
 
@@ -80,7 +80,7 @@ We install express and mongoose which is a package which provides a straight-for
 sudo npm install express mongoose
 ```
 
-![]()
+![](./img/mean6.PNG)
 
 In the books directory create a directory `apps` and create a `routes.js` file then append the code to it.
 
@@ -241,12 +241,12 @@ Create a `index.html` in the `public` directory and append the code
 
 We move into the books directory and spin up the express server using `node server.js`
 
-![]()
+![](./img/mean7.PNG)
 
 Configure security group inbound rules to allow our application to be accessible via the internet via our server port
 
-![]()
+![](./img/mean8.PNG)
 
 On a browser, paste the public ip address of our instance to view the site
 
-![]()
+![](./img/mean9.PNG)
