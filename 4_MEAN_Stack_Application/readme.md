@@ -1,6 +1,6 @@
 # Deploying a MEAN Stack Web App on AWS
 
-We create an aws EC2 instance, named `project-MEAN`. This will serve as the backbone of our application deployment
+We create an aws EC2 instance, named `Project-MEAN`. This will serve as the backbone of our application deployment
 
 ![](./img/mean1.PNG)
 
