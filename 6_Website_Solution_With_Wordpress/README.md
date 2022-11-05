@@ -66,7 +66,7 @@
 
 ![](./img/Word15.png)
 
-## Persisting Mount Points
+### Persisting Mount Points
 
 * To ensure that all our points are not erased on restarting the server, we persist the mount points by configuring the `/etc/fstab` directory
 
@@ -81,3 +81,47 @@
 * Testing mount point persistence
 
 ![](./img/Word18.png)
+
+## 2. Preparing Database Server
+
+* Repeated all the steps taken to configure the webserver on the dbserver. Changed `apps-lv` logical volume to `db-lv`, also mounted the database on `/var/db`
+
+![](./img/Word19.png)
+
+## 3. Configuring Web Server
+
+* run update and install httpd on web server
+```
+sudo yum install -y update
+sudo yum -y install wget httpd php php-mysqlnd php-fpm php-json
+```
+
+* Start web server
+
+![](./img/word20.png)
+
+* Installing php and its dependencies
+```
+sudo yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+sudo yum install yum-utils http://rpms.remirepo.net/enterprise/remi-release-8.rpm
+sudo yum module list php
+sudo yum module reset php
+sudo yum module enable php:remi-7.4
+sudo yum install php php-opcache php-gd php-curl php-mysqlnd
+sudo systemctl start php-fpm
+sudo systemctl enable php-fpm
+setsebool -P httpd_execmem 1
+```
+
+* Restarting Apache `sudo systemctl restart httpd`
+
+* Downloading wordpress and moving it into the web content delivery
+```
+mkdir wordpress
+cd   wordpress
+sudo wget http://wordpress.org/latest.tar.gz
+sudo tar xzvf latest.tar.gz
+sudo rm -rf latest.tar.gz
+cp wordpress/wp-config-sample.php wordpress/wp-config.php
+cp -R wordpress /var/www/html/
+```
