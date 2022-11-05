@@ -125,3 +125,45 @@ sudo rm -rf latest.tar.gz
 cp wordpress/wp-config-sample.php wordpress/wp-config.php
 cp -R wordpress /var/www/html/
 ```
+
+* Configure SELinux Policies
+```
+sudo chown -R apache:apache /var/www/html/wordpress
+sudo chcon -t httpd_sys_rw_content_t /var/www/html/wordpress -R
+sudo setsebool -P httpd_can_network_connect=1
+```
+
+## 4. Installing MYSQL on DB Server
+
+```
+sudo yum update
+sudo yum install mysql-server
+```
+
+* To ensure that database server starts automatically on reboot or system startup
+```
+sudo systemctl restart mysqld
+sudo systemctl enable mysqld
+```
+
+## 5. Setting up DB Server
+
+![](./img/Screenshot%202022-11-02%20at%2022.22.40.png)
+
+* We added port `3306` on our db server to allow our webserver to access the database server
+
+![](./img/Word22.png)
+
+## 6. Connecting Web Server to DB Server
+
+* Installing MYSQLClient on the web server so we connect to the db server
+```
+sudo yum install mysql
+sudo mysql -u admin -p -h <DB-Server-Private-IP-address>
+```
+
+![](./img/Screenshot%202022-11-02%20at%2022.26.18.png)
+
+* On the browser, web server was accessed using the public ip address of the server
+
+![]()
