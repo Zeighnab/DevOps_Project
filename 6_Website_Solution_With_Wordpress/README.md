@@ -39,3 +39,21 @@
 `sudo vgcreate <grp_name> <ppv_path1>...<pv_path1000>`
 
 ![](./img/Word9.png)
+
+* Create logical volumes for the volume group
+`sudo lvcreate -n <lv_name> -L <lv_size> <vg_name>`
+
+![](./img/Word10.png)
+
+* Our logical volumes are to be used as filesystems for storing application and log data.
+* Creating filesystems on the both logical volumes
+
+![](./img/Word11.png)
+
+* Web contents to be used by the apache webserver are stored in the `/var/www/html` folder. A directory for collecting log data was also created
+
+![](./img/Word12.png)
+
+* The filesystem was mounted on the apache directory `/var/www/html`. Also the logs filesystem was mounted on the log directory `/var/log`
+
+![](./img/Word13.png)
