@@ -57,3 +57,27 @@
 * The filesystem was mounted on the apache directory `/var/www/html`. Also the logs filesystem was mounted on the log directory `/var/log`
 
 ![](./img/Word13.png)
+
+* Mount logs logical volume to var logs
+
+![](./img/Word14.png)
+
+* Restoring back var logs data into var logs 
+
+![](./img/Word15.png)
+
+## Persisting Mount Points
+
+* To ensure that all our points are not erased on restarting the server, we persist the mount points by configuring the `/etc/fstab` directory
+
+* `sudo blkid` to get UUID of each mount points
+
+![](./img/Word16.png)
+
+* `sudo vi /etc/fstab` to edit the file
+
+![](./img/Word17.png)
+
+* Testing mount point persistence
+
+![](./img/Word18.png)
