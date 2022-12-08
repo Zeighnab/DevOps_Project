@@ -1,5 +1,5 @@
 # DevOps Website Solution
-In previous project [Implementing Web Solution (https://github.com/Zeighnab/DevOps_Project/tree/main/6_Website_Solution_With_Wordpress)] I implemented a WordPress based solution that is ready to be filled with content and can be used as a full fledged website or blog. Moving further I will add some more value to my solution so that a member of a DevOps team could utilize.
+In previous project [Implementing Web Solution](https://github.com/Zeighnab/DevOps_Project/tree/main/6_Website_Solution_With_Wordpress) I implemented a WordPress based solution that is ready to be filled with content and can be used as a full fledged website or blog. Moving further I will add some more value to my solution so that a member of a DevOps team could utilize.
 
 In this project,, I will be introducing the concept of file sharing for multiple servers to share the same web content and also a database for storing data related to the website.
 
@@ -51,3 +51,98 @@ Next we configure NFS to interact with clients present in the same subnet.
 We can find the subnet ID and CIDR in the Networking tab of our instances
 
 ![](./img//5.png)
+
+```
+sudo vi /etc/exports
+
+On the vim editor add the lines as seen in the image below
+
+sudo exportfs -arv
+```
+
+![](./img/6.png)
+
+To check what port is used by NFS so we can open it in security group
+
+![](./img/7.png)
+
+The following ports are to be open on the NFS server
+
+![](./img/8.png)
+
+## Preparing Database Server
+
+Create an Ubuntu Server on AWS which will serve as our Database. Ensure its in the same subnet as the NFS-Server.
+
+Install mysql-server
+
+```
+sudo apt -y update
+sudo apt install -y mysql-server
+
+To enter the db environment run
+sudo mysql
+```
+* Create a database and name it tooling
+* Create a database user and name it webaccess
+* Grant permission to webaccess user on tooling database to do anything only from the webservers `subnet cidr`
+
+![](./img/9.png)
+
+![](./img/9-1.png)
+
+## Preparing Web Servers
+
+Create a RHEL EC2 instance on AWS which serves as our web server. Also remember to have in it in same subnet
+
+A couple of configurations will be done on the web servers:
+
+* configuring NFS client
+* deploying tooling website application
+* configure servers to work with database
+
+Installing NFS-Client
+
+![](./img/10.png)
+
+We will be connecting our `/var/www` directory to our webserver with the `/mnt/apps` on nfs server. This is acheived by mounting the NFS server directory to the webserver directory
+
+![](./img/11.png)
+
+We then need to ensure that our mounts remain intact when the server reboots. This is achieved by configuring the fstab directory. 
+`sudo vi /etc/fstab`
+
+add the following line `<NFS-Server-Private-IP-Address>:/mnt/apps /var/www nfs defaults 0 0`
+
+![](./img/12.png)
+
+## Installing Apache and php
+```
+sudo yum install httpd -y
+
+sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm -y
+
+sudo dnf install dnf-utils http://rpms.remirepo.net/enterprise/remi-release-8.rpm -y
+
+sudo dnf module reset php
+
+sudo dnf module enable php:remi-7.4
+
+sudo dnf install php php-opcache php-gd php-curl php-mysqlnd -y
+
+sudo systemctl start php-fpm
+
+sudo systemctl enable php-fpm
+
+sudo setsebool -P httpd_execmem 1
+```
+
+We can see that both `/var/www` and `/mnt/apps` contains same content. This shows that both mount points are connected via NFS.
+
+![](./img/13.png)
+
+![](./img/14.png)
+
+We locate the log folder for Apache on the Web Server and mount it to NFS server’s export for logs. Make sure the mount point will persist after reboot.
+
+![](./img/15.png)
