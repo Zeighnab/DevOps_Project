@@ -1,5 +1,5 @@
 # DevOps Website Solution
-In previous project [Implementing Web Solution](https://github.com/Zeighnab/DevOps_Project/tree/main/6_Website_Solution_With_Wordpress) I implemented a WordPress based solution that is ready to be filled with content and can be used as a full fledged website or blog. Moving further I will add some more value to my solution so that a member of a DevOps team could utilize.
+In previous project [Implementing Web Solution](https://github.com/Zeighnab/DevOps_Project/tree/main/6_Website_Solution_With_Wordpress), I implemented a WordPress based solution that is ready to be filled with content and can be used as a full fledged website or blog. Moving further I will add some more value to my solution so that a member of a DevOps team could utilize.
 
 In this project,, I will be introducing the concept of file sharing for multiple servers to share the same web content and also a database for storing data related to the website.
 
@@ -146,3 +146,29 @@ We can see that both `/var/www` and `/mnt/apps` contains same content. This show
 We locate the log folder for Apache on the Web Server and mount it to NFS server’s export for logs. Make sure the mount point will persist after reboot.
 
 ![](./img/15.png)
+
+On the `/etc/fstab` persist log mount point
+
+![](./img/16.png)
+
+On the NFS Server, add web content into the `/mnt/apps` directory. This should contain a html folder. The same content will be present in the `/var/www` directory in the web server.
+
+![](./img/17.png)
+
+Run `<public_ip_address>/index.php` on a web browser to access the site. Use public_ip_address of the web server. TCP port 80 should be open on the web broswer.
+
+![](./img/18.png)
+
+In the `/var/www/html` directory , edit the already written php script to connect to the database `sudo vi /var/www/html/functions.php`
+
+![](./img/19.png)
+
+After the modification , connect to the database server from the web server `sudo mysql -h <databse-private-ip> -u <db-username> -p <db-pasword> < tooling-db.sql`
+
+![](./img/20.png)
+
+Simulate a sign up process by adding user credentials manually to the database
+![](./img/21.png)
+
+Login by running the following on the browser `<public_ip_address>/login.php`.
+![](./img/22.png)
