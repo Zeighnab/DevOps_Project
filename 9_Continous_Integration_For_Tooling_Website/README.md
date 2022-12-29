@@ -88,7 +88,7 @@ sudo systemctl status jenkins
 
 ![](./img/15.png)
 
-* At this point, our architecture has pretty much been built, lets taste it by making a change on any file on the Github repository and then push it to see the triggered job
+* At this point, our architecture has pretty much been built, lets test it by making a change on any file on the Github repository and then push it to see the triggered job
 
 ![](./img/16.png)
 
@@ -128,17 +128,17 @@ sudo systemctl status jenkins
 
 ![](./img/22.png)
 
-* We specify `**` on the `send build artifacts` tab meaning it sends all artifact to specified destination path(NFS Server).
-
 ![](./img/23.png)
+
+* We specify `**` on the `send build artifacts` tab meaning it sends all artifact to specified destination path(NFS Server).
 
 ![](./img/24.png)
 
-![](./img/25.png)
-
 * Now make a new change on the source code and push to github, Jenkins builds an artifact by downloading the code into its workspace based on the latest commit and via SSH it publishes the artifact into the NFS Server to update the source code.
 
-* *his is seen by the change of name on the web application
+![](./img/25.png)
+
+* This is seen by the change of name on the web application
 
 ![](./img/26.png)
 
