@@ -45,7 +45,7 @@ sudo systemctl status jenkins
 
 * jenkins is up and running, copy and paste jenkins server public ip address appended with port 8080 on a web server to gain access to the interactive console. `<jenkins_server_public_ip_address>:8080`
 
-![](./img/41.png)
+![](./img/4.png)
 
 * The admin password can be found in the '/var/lib/jenkins/secrets/initialAdminPassword' path on the server.
 
