@@ -55,25 +55,26 @@ sudo systemctl status jenkins
 
 ![](./img/7.png)
 
+![](./img/8.png)
+
 ## Attaching WebHook to Jenkins Server
 
 * On the github repository that contains application code, create a webhook to connect to the jenkins job. To create webhook, go to the settings tab on the github repo and click on webhooks. Webhook should look like this `<public_ip_of_jenkins_server>:8080/github-webhook/`
 
-![](./img/8.png)
-
+![](./img/9.png)
 ## Creating Job and Configuring GIT Based Push Trigger
 
 * On the jenkins server, create a new freestyle job
 
-![](./img/9.png)
+![](./img/10.png)
 
 * In configuration of the Jenkins freestyle job choose Git repository, provide there the link to the GitHub repository and credentials (user/password) so Jenkins could access files in the repository. Also specify the branch containing code
-
-![](./img/10.png)
 
 ![](./img/11.png)
 
 ![](./img/12.png)
+
+![](./img/13.png)
 
 ## Configuring Build Triggers
 
@@ -81,25 +82,25 @@ sudo systemctl status jenkins
 
 1. Configure triggering the job from GitHub webhook:
 
-![](./img/13.png)
+![](./img/14.png)
 
 2. Configure "Post-build Actions" to archive all the files – files resulted from a build are called "artifacts".
 
-![](./img/14.png)
+![](./img/15.png)
 
 * At this point, our architecture has pretty much been built, lets taste it by making a change on any file on the Github repository and then push it to see the triggered job
 
-![](./img/15.png)
+![](./img/16.png)
 
 * The console output shows the created job and the successful build. In this case the code on Github was built into an artifact on our Jenkins server workspace. Find the artificat by checking the status tab of the completed job .
 
-![](./img/16.png)
-
 ![](./img/17.png)
+
+![](./img/18.png)
 
 * Our created artifact can be found on our local terminal too at this path `/var/lib/jenkins/jobs/tooling_github/builds/<build_number>/archive/`
 
-![](./img/18.png)
+![](./img/19.png)
 
 ## Configuring Jenkins To Copy Files(Artifact) to NFS Server
 
@@ -109,7 +110,7 @@ sudo systemctl status jenkins
 
 * On "Available" tab search for "Publish Over SSH" plugin and install it
 
-![](./img/19.png)
+![](./img/20.png)
 
 * Configure the job to copy artifacts over to NFS server. On main dashboard select "Manage Jenkins" and choose "Configure System" menu item.
 
@@ -123,20 +124,22 @@ sudo systemctl status jenkins
 
 * Test the configuration and make sure the connection returns Success. Remember, that TCP port 22 on NFS server must be open to receive SSH connections.
 
-![](./img/20.png)
-
 ![](./img/21.png)
-
-* We specify `**` on the `send build artifacts` tab meaning it sends all artifact to specified destination path(NFS Server).
 
 ![](./img/22.png)
 
+* We specify `**` on the `send build artifacts` tab meaning it sends all artifact to specified destination path(NFS Server).
+
 ![](./img/23.png)
+
+![](./img/24.png)
+
+![](./img/25.png)
 
 * Now make a new change on the source code and push to github, Jenkins builds an artifact by downloading the code into its workspace based on the latest commit and via SSH it publishes the artifact into the NFS Server to update the source code.
 
 * *his is seen by the change of name on the web application
 
-![](./img/24.png)
+![](./img/26.png)
 
-![](./img/25.png)
+![](./img/27.png)
