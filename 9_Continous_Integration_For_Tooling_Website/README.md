@@ -4,7 +4,7 @@
 
 Jenkins is an open-source Continuous Integration server written in Java for orchestrating a chain of actions to achieve the Continuous Integration process in an automated fashion. Jenkins supports the complete development life cycle of software from building, testing, documenting the software, deploying, and other stages of the software development life cycle.
 
-![]()
+![](./img/0.png)
 
 In this Project, Jenkins was used to automate code delivery to NFS Server
 
@@ -45,4 +45,4 @@ Since Jenkins runs on default port 8080, open this port on the Security Group in
 
 Jenkins is up and running, copy and paste jenkins server public ip address appended with port 8080 on a web server to gain access to the interactive console. `<jenkins_server_public_ip_address>:8080`
 
-![](./img/3.png)
+![](./img/4.png)
